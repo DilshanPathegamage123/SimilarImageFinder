@@ -1,0 +1,72 @@
+.App {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.upload-box {
+  border: 2px dashed #32ce0a;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px;
+  cursor: pointer;
+  background-color: #ffffff;
+  width: 30%;
+  height: 50px;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.upload-box:hover {
+  background-color: #f0f0f0;
+}
+
+.upload-box p {
+  margin: 0;
+  font-size: 1.2em;
+  color: #1c2ed3;
+  margin: auto;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  margin: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.search-results {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.search-results img {
+  width: 200px;
+  height: 200px;
+  margin: 10px;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropzone {
+  padding: 20px;
+  border: 2px dashed #007bff;
+  background-color: #f0f8ff;
+  cursor: pointer;
+}
