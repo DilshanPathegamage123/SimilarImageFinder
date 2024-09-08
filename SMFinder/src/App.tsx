@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import "./App.css";
@@ -7,6 +7,7 @@ function App() {
   const [dataset, setDataset] = useState<File[]>([]);
   const [singleImage, setSingleImage] = useState<File | null>(null);
   const [searchResults, setSearchResults] = useState<string[]>([]);
+  const [searchTriggered, setSearchTriggered] = useState(false);
 
   // Handle dataset folder upload
   const onDatasetUpload = (acceptedFiles: File[]) => {
@@ -46,21 +47,27 @@ function App() {
       });
   };
 
-  // Handle single image upload for similarity search
-  const onSingleImageUpload = (acceptedFiles: File[]) => {
-    const formData = new FormData();
-    formData.append("singleImage", acceptedFiles[0]);
-
+   // Handle single image upload for similarity search
+   const onSingleImageUpload = (acceptedFiles: File[]) => {
     setSingleImage(acceptedFiles[0]);
+  };
 
-    axios
-      .post("https://localhost:7129/api/FindSimilarImages", formData)
-      .then((response) => {
-        setSearchResults(response.data);
-      })
-      .catch((error) => {
-        console.error("Error searching for similar images:", error);
-      });
+  // Handle search when the search button is clicked
+  const handleSearch = () => {
+    if (singleImage) {
+      const formData = new FormData();
+      formData.append("singleImage", singleImage);
+
+      axios
+        .post("https://localhost:7129/api/FindSimilarImages", formData)
+        .then((response) => {
+          setSearchResults(response.data);
+          setSearchTriggered(true); // Trigger search
+        })
+        .catch((error) => {
+          console.error("Error searching for similar images:", error);
+        });
+    }
   };
 
   // Dropzone for dataset folder (multiple images) upload
@@ -123,16 +130,21 @@ function App() {
         </div>
       )}
 
+      {/* Search button */}
+      
+        <button onClick={handleSearch}>Find Similar Images</button>
+      
+
       {/* Display search results */}
       <div className="search-results">
-        {searchResults.map((image, index) => (
-          <img
-            key={index}
-            src={`https://localhost:5001/${image}`}
-            alt="Search result"
-          />
-        ))}
-      </div>
+  {searchResults.map((image, index) => (
+    <img
+      key={index}
+      src={`http://localhost:5176${image}`} 
+      alt="Search result"
+    />
+  ))}
+</div>
     </div>
   );
 }
