@@ -8,38 +8,13 @@ h1 {
   margin-bottom: 20px;
 }
 
-.upload-box {
-  border: 2px dashed #32ce0a;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px;
-  cursor: pointer;
-  background-color: #ffffff;
-  width: 30%;
-  height: 50px;
-  margin: auto;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-
-.upload-box:hover {
-  background-color: #f0f0f0;
-}
-
-.upload-box p {
-  margin: 0;
-  font-size: 1.2em;
-  color: #1c2ed3;
-  margin: auto;
-}
-
 button {
-  background-color: #4caf50;
+  background-color: #382350;
   color: white;
   padding: 10px 20px;
   margin: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -53,12 +28,14 @@ button:hover {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  background-color: #9acca2;
+  border-radius: 10px;
 }
 
 .search-results img {
   width: 200px;
   height: 200px;
-  margin: 10px;
+
   border-radius: 10px;
   object-fit: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -66,7 +43,20 @@ button:hover {
 
 .dropzone {
   padding: 20px;
-  border: 2px dashed #007bff;
   background-color: #f0f8ff;
   cursor: pointer;
+}
+
+.clearbtn {
+  background-color: #2768bd;
+}
+
+.Uploaded-img {
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+
+.ImgIcon {
+  max-width: 150px;
+  max-height: 100px;
 }
