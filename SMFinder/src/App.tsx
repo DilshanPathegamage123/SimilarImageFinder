@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
-import { useDropzone } from "react-dropzone";
+import Swal from "sweetalert2";
+import ImgIcon from "./assets/Imgicon.png";
+import UploadBox from "./Components/UploadBox/UploadBox";
 import "./App.css";
 
 function App() {
@@ -47,8 +49,8 @@ function App() {
       });
   };
 
-   // Handle single image upload for similarity search
-   const onSingleImageUpload = (acceptedFiles: File[]) => {
+  // Handle single image upload for similarity search
+  const onSingleImageUpload = (acceptedFiles: File[]) => {
     setSingleImage(acceptedFiles[0]);
   };
 
@@ -58,93 +60,140 @@ function App() {
       const formData = new FormData();
       formData.append("singleImage", singleImage);
 
+      Swal.fire({
+        title: "Searching",
+        text: "Please wait...",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading(); // Show loading indicator
+        },
+      });
+
       axios
         .post("https://localhost:7129/api/FindSimilarImages", formData)
         .then((response) => {
           setSearchResults(response.data);
           setSearchTriggered(true); // Trigger search
+
+          // Update SweetAlert to show success message
+          Swal.fire({
+            title: "Search Completed!",
+            text: "We found similar images.",
+            icon: "success",
+            timer: 2500, // Auto close after 2.5 seconds
+          });
         })
         .catch((error) => {
           console.error("Error searching for similar images:", error);
+          // Update SweetAlert to show error message
+          Swal.fire({
+            title: "Error!",
+            text: "Error searching for similar images.",
+            icon: "error",
+          });
         });
     }
   };
 
-  // Dropzone for dataset folder (multiple images) upload
-  const {
-    getRootProps: getRootPropsDataset,
-    getInputProps: getInputPropsDataset,
-  } = useDropzone({
-    onDrop: onDatasetUpload,
-    multiple: true,
-    accept: { "image/*": [] }, // Update to object format to fix TypeScript error
-  });
-
-  // Dropzone for single image upload
-  const {
-    getRootProps: getRootPropsSingle,
-    getInputProps: getInputPropsSingle,
-  } = useDropzone({
-    onDrop: onSingleImageUpload,
-    multiple: false,
-    accept: { "image/*": [] }, // Update to object format to fix TypeScript error
-  });
-
   return (
-    <div className="App">
-      <h1>Image Similarity Search</h1>
-
-      {/* Dataset upload area */}
-      <div {...getRootPropsDataset()} className="upload-box">
-        <input {...getInputPropsDataset()} />
-        <p>Drag and drop a folder of images here, or click to select files</p>
-      </div>
-
-      {/* Display uploaded dataset */}
-      {dataset.length > 0 && (
-        <div>
-          <h5>{dataset.length} images uploaded</h5>
+    <div className="App container-fluid">
+      <div className="row">
+        <div className="Heading m-auto mt-4 mb-5">
+          <h2>Find Similar Images in your Large Image Set</h2>
         </div>
-      )}
 
-      {/* Clear dataset button */}
-      {dataset.length > 0 && (
-        <button onClick={clearDataset}>Clear Dataset</button>
-      )}
-
-      {/* Single image upload area */}
-      <div {...getRootPropsSingle()} className="upload-box">
-        <input {...getInputPropsSingle()} />
-        <p>Drag and drop a single image here, or click to select one</p>
-      </div>
-
-      {/* Display single image */}
-      {singleImage && (
-        <div>
-          <h3>Uploaded Image:</h3>
-          <img
-            src={URL.createObjectURL(singleImage)}
-            alt="Uploaded"
-            style={{ maxWidth: "300px", maxHeight: "300px" }}
+        <div className="UploadArea col col-12 col-md-3">
+          {/* Dataset upload area */}
+          <h5 className="mt-2 mb-4">Upload Here</h5>
+          <UploadBox
+            message="Drop a folder of images here, or click to select"
+            onFilesAccepted={onDatasetUpload}
+            multiple={true}
+            accept={{ "image/*": [] }}
           />
+
+          {/* Display uploaded dataset */}
+          {dataset.length > 0 && (
+            <div>
+              <p className="mt-2">{dataset.length} images uploaded</p>
+            </div>
+          )}
+
+          {/* Single image upload area */}
+          <UploadBox
+            message="Drag and drop a single image here, or click to select one"
+            onFilesAccepted={onSingleImageUpload}
+            multiple={false}
+            accept={{ "image/*": [] }}
+          />
+
+          {/* Clear dataset button */}
+          {dataset.length > 0 && (
+            <button className=" clearbtn mt-3" onClick={clearDataset}>
+              Clear Uploads
+            </button>
+          )}
         </div>
-      )}
 
-      {/* Search button */}
-      
-        <button onClick={handleSearch}>Find Similar Images</button>
-      
-
-      {/* Display search results */}
-      <div className="search-results">
-  {searchResults.map((image, index) => (
-    <img
-      key={index}
-      src={`http://localhost:5176${image}`} 
-      alt="Search result"
-    />
-  ))}
-</div>
+        <div className="ResultArea col-12 col-md-9 ">
+          <div className="row">
+            <div className="Uploaded-img col-12 col-md-3  mb-3">
+              {/* Display single image */}
+              {singleImage ? (
+                <div>
+                  <h5 className="mt-2">Uploaded Image</h5>
+                  <img
+                    src={URL.createObjectURL(singleImage)}
+                    alt="Uploaded"
+                    style={{ maxWidth: "250px", maxHeight: "350px" }}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <h5 className="mt-2 mb-4">No Image Uploaded</h5>
+                  <img
+                    src={ImgIcon}
+                    alt="Image Icon"
+                    className="ImgIcon m-auto"
+                  />
+                </div>
+              )}
+              {/* Search button */}
+              <button className="mt-5" onClick={handleSearch}>
+                Find Similar Images
+              </button>
+            </div>
+            {/* Display search results */}
+            <div className="search-results row col-12 col-md-8 ms-4">
+              <h5 className="mt-2">Similar Images</h5>
+              {searchTriggered && searchResults.length === 0 && (
+                <p className="text-center mt-2">No similar images found</p>
+              )}
+              {!searchTriggered && (
+                <p className="text-center mt-2">No search has been performed</p>
+              )}
+              {searchResults.map((image, index) => (
+                <div key={index} className="col-6 col-md-4 mb-3">
+                  <img
+                    src={`https://localhost:7129${
+                      image.startsWith("/") ? image : "/" + image
+                    }`}
+                    alt="Search result"
+                    className="img-fluid"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://via.placeholder.com/150";
+                      e.currentTarget.alt = "Image not available";
+                    }}
+                  />
+                  <p className="text-center mt-2">
+                    {image.replace("/dataset/", "")}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
