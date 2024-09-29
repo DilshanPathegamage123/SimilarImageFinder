@@ -99,7 +99,7 @@ function App() {
     <div className="App container-fluid">
       <div className="row">
         <div className="Heading m-auto mt-4 mb-5">
-          <h2>Find Similar Images in your Large Image Set</h2>
+          <h2> Find Similar Images in your Large Image Set</h2>
         </div>
 
         <div className="UploadArea col col-12 col-md-3">

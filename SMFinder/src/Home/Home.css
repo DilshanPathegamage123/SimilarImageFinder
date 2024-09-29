@@ -1,0 +1,48 @@
+.maindiv {
+  background-image: url("../assets/back3-transformed.jpeg");
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
+}
+.heading {
+  font-weight: bolder;
+  font-size: 50px;
+  color: rgb(255, 255, 255);
+  font-family: cursive;
+  margin-top: 2%;
+  margin-left: 3%;
+}
+
+.heading1 {
+  font-weight: regular;
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-align: center;
+}
+
+.heading2 {
+  font-size: 20px;
+  color: rgb(214, 205, 205);
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-align: center;
+}
+
+.centercontent {
+  background: linear-gradient(to right, #131212, #574639);
+
+  border-radius: 15px;
+  margin-top: 5%;
+}
+
+.button {
+  border-radius: 5px;
+  background-color: aliceblue;
+  font-size: large;
+  font-weight: semi-bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
