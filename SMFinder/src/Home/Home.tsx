@@ -12,7 +12,7 @@ const Home = () => {
     <div className="maindiv bg-dark w-100 vh-100 ">
       <div className="row col-12">
         <div className="col-12 d-flex">
-          <p className="heading ">SimiliFy</p>
+          <p className="headingg">SimiliFy</p>
         </div>
       </div>
       <div className="centercontent ms-auto me-auto col-8 h-auto p-4">
