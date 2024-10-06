@@ -96,15 +96,17 @@ const ComparisonPage = () => {
   };
 
   return (
-    <div className="App container-fluid vh-100">
+    <div className="App container-fluid">
       <div className="row col-12">
         <div className="col-12 d-flex">
           <p className="heading ">SimiliFy</p>
         </div>
       </div>
-      <div className="row">
-        <div className="Heading m-auto mt-4 mb-5 text-white">
-          <h2> Find Similar Images in your Large Image Set</h2>
+      <div className=" row">
+        <div className="Heading m-auto mt-4 mb-5 text-white ">
+          <div className="MiddleRow">
+            <h2> Find Similar Images in your Large Image Set</h2>
+          </div>
         </div>
 
         <div className="UploadArea col col-12 col-md-2 me-4 ms-5 pb-4">
