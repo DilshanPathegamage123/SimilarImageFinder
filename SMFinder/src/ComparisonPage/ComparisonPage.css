@@ -2,6 +2,14 @@
   text-align: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-image: url("../assets/back3-transformed.jpeg");
+  /* background: linear-gradient(to right, #131212, #574639); */
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
+  width: 100%;
 }
 
 h1 {
@@ -75,10 +83,18 @@ button:hover {
 }
 
 .heading {
-    font-weight: bolder;
-    font-size: 50px;
-    color: rgb(255, 255, 255);
-    font-family: cursive;
-    margin-top: 2%;
-    margin-left: 3%;
-  }
+  font-weight: bolder;
+  font-size: 50px;
+  color: rgb(255, 255, 255);
+  font-family: cursive;
+  margin-top: 2%;
+  margin-left: 3%;
+}
+
+.MiddleRow {
+  background: linear-gradient(to right, #302b2b, #574639);
+  margin-left: 10%;
+  margin-right: 10%;
+  padding: 10px;
+  border-radius: 10px;
+}
